@@ -35,44 +35,45 @@ def safe_get(request_url):
         return None
 
 
-# step 1: get list of paintings of women
-# step 2: get data for each painting and filter out non women artists
-params = {"medium": "Paintings", "q": "women"}
-param_str = urllib.parse.urlencode(params)
-url = met_url + "search" + "?" + param_str
-unfiltered_objectIDs = safe_get(url)
-
-# print(unfiltered_objectIDs["objectIDs"])
-# print(objectIDs_random)
-# print(pretty(unfiltered_objectIDs))
-# print("\npass: retrieved list of paintings of women\n")
-
 paintings = {}
 paintings_by_women = {}
 image_rows = {}
 
 
-# print(pretty(image_rows))
-# print(pretty(paintings_by_women))
-# print(pretty(paintings))
 @app.route('/')
 def start():
-    return render_template("template.html", paintings=paintings, paintings_by_women=paintings_by_women,
-                           image_rows=image_rows, num_by_women=len(paintings_by_women), form=True, all_paintings=False)
+    return render_template("template.html", form=True)
 
 @app.route('/by-women')
 def filter_paintings():
-    random_order = unfiltered_objectIDs["objectIDs"].copy()
+    # step 1: get list of paintings of women
+    # step 2: get data for each painting and filter out non women artists
+    params = {"medium": "Paintings", "q": "women"}
+    param_str = urllib.parse.urlencode(params)
+    url = met_url + "search" + "?" + param_str
+    unfiltered = safe_get(url)
+
+
+    # print(unfiltered["objectIDs"])
+    # print(objectIDs_random)
+    # print(pretty(unfiltered))
+    # print("\npass: retrieved list of paintings of women\n")
+    # print(pretty(image_rows))
+    # print(pretty(paintings_by_women))
+    # print(pretty(paintings))
+    random_order = unfiltered["objectIDs"].copy()
     shuffle(random_order)
+
     size = int(request.args.get('size'))
     row_fill = 4
     row_num = 1
-    range_end = randint(size, unfiltered_objectIDs["total"])
+    range_end = randint(size, unfiltered["total"])
     range_start = range_end - size
+    print(random_order)
     # print(size)
-    # print(unfiltered_objectIDs["total"])
-    # print(range_end)
-    # print(range_start)
+    # print(unfiltered["total"])
+    print(range_end)
+    print(range_start)
 
     for objectID in random_order[range_start:range_end]:
         req_url = met_url + "objects/" + str(objectID)
