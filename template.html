@@ -94,27 +94,27 @@
     {% if form %}
     <h1>How large would you like your sample size to be?</h1>
     <form action="by-women" method="get">
-        <label for="size">Please enter a number between 1 and 50.<br><br></label>
-        <input type="number" id="size" name="size" min="1" max="50"/>
+        <label for="size">Please enter a number between 1 and 100.<br><br></label>
+        <input type="number" id="size" name="size" min="1" max="100"/>
         <input type="submit" value="Go" name="gobtn"/>
     {% else %}
         {% if paintings_by_women|length > 1 %}
-    <h1>Out of this random selection of paintings about or related to women<br>
-        from The Met, only {{num_by_women}} paintings are painted by women.</h1>
-    <h2>Take the time to learn more about these paintings and others and support women in the arts.</h2>
-    {% endif %}
+            <h1>Out of this random sample of paintings from The Met of or about women,<br>
+                only {{paintings_by_women|length}} paintings are painted by women.</h1>
+            <h2>Take the time to learn more about these paintings and others and support women in the arts.</h2>
+        {% endif %}
 
-    {% if paintings_by_women|length < 1 %}
-    <h1>Out of this random sample of paintings about or related to women<br>
-        from The Met, 0 paintings are painted by women.</h1>
-    <h2>Take the time to learn about paintings by women and support women in the arts.</h2>
-    {% endif %}
+        {% if paintings_by_women|length < 1 %}
+            <h1>Out of this random sample of paintings from The Met of or about women,<br>
+                0 paintings are painted by women.</h1>
+            <h2>Take the time to learn about paintings by women and support women in the arts.</h2>
+        {% endif %}
 
-    {% if paintings_by_women|length == 1 %}
-    <h1>Out of this random sample of paintings about or related to women<br>
-        from The Met, only 1 painting is painted by a woman.</h1>
-    <h2>Take the time to learn more about this painting and others and support women in the arts.</h2>
-    {% endif %}
+        {% if paintings_by_women|length == 1 %}
+            <h1>Out of this random sample of paintings from The Met of or about women,<br>
+                only 1 painting is painted by a woman.</h1>
+            <h2>Take the time to learn more about this painting and others and support women in the arts.</h2>
+        {% endif %}
 
     {% if all_paintings %}
         <div class="pages"><a href='/back'><p>View only paintings by women.</p></a></div>
