@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Art by Women at The Met</title>
+    <style>
+        body {
+            background-color: #998665;
+        }
+        h1 {
+            color: white;
+            font: 48px Georgia, serif;
+            text-align: center;
+            padding-top: 300px;
+        }
+        h2 {
+            color: white;
+            font: 24px Helvetica, Arial, sans-serif;
+            text-align: center;
+        }
+        p {
+            color: white;
+            font: 18px Helvetica, Arial, sans-serif;
+        }
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        a {
+            text-decoration-line: none;
+        }
+        form {
+            text-align: center;
+            color: white;
+            font: 18px Helvetica, Arial, sans-serif;
+        }
+        .pages {
+            padding-bottom: 200px;
+            text-align: center;
+            opacity: 0.5;
+        }
+        .pages:hover {
+            opacity: 1.0;
+        }
+        .container {
+            position: relative;
+            text-align: center;
+            padding: 100px;
+        }
+        .overlap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+        }
+        .overlap:hover {
+            opacity: 1.0;
+        }
+        .image-grid {
+            column-count: 4;
+            column-width: 50%;
+            margin: 20px;
+        }
+        .image {
+            column-span: 1;
+            padding-bottom: 40px;
+        }
+        .image:hover {
+            opacity: 0.5;
+        }
+        #description {
+            color: white;
+            font: 100px Georgia, serif;
+            opacity: 0.3
+            text-align: center;
+        }
+        #met-api {
+            opacity: 0.5;
+            text-align: center;
+            padding-top: 40px;
+        }
+        #met-api:hover {
+            opacity: 1.0;
+        }
+        #byline {
+            text-align: center;
+            padding-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    {% if form %}
+    <h1>How large would you like your sample size to be?</h1>
+    <form action="by-women" method="get">
+        <label for="size">Please enter a number between 1 and 50.<br><br></label>
+        <input type="number" id="size" name="size" min="1" max="50"/>
+        <input type="submit" value="Go" name="gobtn"/>
+    {% else %}
+        {% if paintings_by_women|length > 1 %}
+    <h1>Out of this random selection of paintings about or related to women<br>
+        from The Met, only {{num_by_women}} paintings are painted by women.</h1>
+    <h2>Take the time to learn more about these paintings and others and support women in the arts.</h2>
+    {% endif %}
+
+    {% if paintings_by_women|length < 1 %}
+    <h1>Out of this random sample of paintings about or related to women<br>
+        from The Met, 0 paintings are painted by women.</h1>
+    <h2>Take the time to learn about paintings by women and support women in the arts.</h2>
+    {% endif %}
+
+    {% if paintings_by_women|length == 1 %}
+    <h1>Out of this random sample of paintings about or related to women<br>
+        from The Met, only 1 painting is painted by a woman.</h1>
+    <h2>Take the time to learn more about this painting and others and support women in the arts.</h2>
+    {% endif %}
+
+    {% if all_paintings %}
+        <div class="pages"><a href='/back'><p>View only paintings by women.</p></a></div>
+        <div class="image-grid">
+        {% for row in image_rows %}
+            <div class="image"><a href="{{image_rows[row][0]['link']}}" target="_blank"><img src="{{image_rows[row][0]['image']}}" alt="{{image_rows[row][0]['title']}} by {{image_rows[row][0]['artist']}}" width="80%"></a></div>
+            {% if image_rows[row]|length > 1 %}
+            <div class="image"><a href="{{image_rows[row][1]['link']}}" target="_blank"><img src="{{image_rows[row][1]['image']}}" alt="{{image_rows[row][1]['title']}} by {{image_rows[row][1]['artist']}}" width="80%"></a></div>
+            {% endif %}
+            {% if image_rows[row]|length > 2 %}
+            <div class="image"><a href="{{image_rows[row][2]['link']}}" target="_blank"><img src="{{image_rows[row][2]['image']}}" alt="{{image_rows[row][2]['title']}} by {{image_rows[row][2]['artist']}}" width="80%"></a></div>
+            {% endif %}
+            {% if image_rows[row]|length > 3 %}
+            <div class="image"><a href="{{image_rows[row][3]['link']}}" target="_blank"><img src="{{image_rows[row][3]['image']}}" alt="{{image_rows[row][3]['title']}} by {{image_rows[row][3]['artist']}}" width="80%"></a></div>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="pages"><a href='/all'><p>View all paintings.</p></a></div>
+        {% for objectID in paintings_by_women %}
+            <div class="container">
+                <img src="{{paintings_by_women[objectID]['image']}}" alt="Click to visit {{paintings_by_women[objectID]['title']}} by {{paintings_by_women[objectID]['artist']}}" width="80%">
+                <div class="overlap"><a href="{{paintings_by_women[objectID]['link']}}" target="_blank"><p id="description">{{paintings_by_women[objectID]['title']}} by {{paintings_by_women[objectID]['artist']}}</p></a></div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endif %}
+
+
+    <a href="https://metmuseum.github.io/" target="_blank"><p id="met-api">Powered by The Metropolitan Museum of Art Collection API.</p></a>
+    <p id="byline">Made by Mileena Ros.</p>
+</body>
+</html>
