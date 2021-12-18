@@ -70,6 +70,15 @@
         .image:hover {
             opacity: 0.5;
         }
+        #title {
+            text-align: left;
+            margin-top: 2%;
+            margin-left: 2%;
+            opacity: 0.5;
+        }
+        #title:hover {
+            opacity: 1.0;
+        }
         #description {
             color: white;
             font: 100px Georgia, serif;
@@ -99,6 +108,7 @@
     </style>
 </head>
 <body>
+    <a href="/"><h2 id="title">Art by Women at The Met Museum</h2></a>
     {% if form %}
     <h1>How large would you like your sample size to be?</h1>
     <form action="by-women" method="get">
