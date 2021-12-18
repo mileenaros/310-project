@@ -88,6 +88,14 @@
             text-align: center;
             padding-bottom: 50px;
         }
+        #restart {
+            opacity: 0.5;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+        #restart:hover {
+            opacity: 1.0;
+        }
     </style>
 </head>
 <body>
@@ -141,9 +149,9 @@
                 <div class="overlap"><a href="{{paintings_by_women[objectID]['link']}}" target="_blank"><p id="description">{{paintings_by_women[objectID]['title']}} by {{paintings_by_women[objectID]['artist']}}</p></a></div>
             </div>
         {% endfor %}
+        <a href="/"><p id="restart">Try another sample size.</p></a>
     {% endif %}
     {% endif %}
-
 
     <a href="https://metmuseum.github.io/" target="_blank"><p id="met-api">Powered by The Metropolitan Museum of Art Collection API.</p></a>
     <p id="byline">Made by Mileena Ros.</p>
