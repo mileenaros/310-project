@@ -74,7 +74,7 @@ def filter_paintings():
     # print(range_end)
     # print(range_start)
 
-    for objectID in objectIDs_random[range_start:range_end]:
+    for objectID in random_order[range_start:range_end]:
         req_url = met_url + "objects/" + str(objectID)
         # print(url)
         temp_data = safe_get(req_url)
