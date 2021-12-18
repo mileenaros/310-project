@@ -79,6 +79,9 @@
         #title:hover {
             opacity: 1.0;
         }
+        #prompt {
+            padding-top: 250px;
+        }
         #description {
             color: white;
             font: 100px Georgia, serif;
@@ -110,7 +113,7 @@
 <body>
     <a href="/"><h2 id="title">Art by Women at The Met Museum</h2></a>
     {% if form %}
-    <h1>How large would you like your sample size to be?</h1>
+    <h1 id="prompt">How large would you like your sample size to be?</h1>
     <form action="by-women" method="get">
         <label for="size">Please enter a number between 1 and 100.<br><br></label>
         <input type="number" id="size" name="size" min="1" max="100"/>
