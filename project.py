@@ -3,7 +3,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from flask import Flask, render_template, request
-from random import randint
+from random import randint, shuffle
 
 app = Flask(__name__)
 
@@ -41,7 +41,11 @@ params = {"medium": "Paintings", "q": "women"}
 param_str = urllib.parse.urlencode(params)
 url = met_url + "search" + "?" + param_str
 unfiltered_objectIDs = safe_get(url)
+objectIDs_random = unfiltered_objectIDs["objectIDs"].copy()
+shuffle(objectIDs_random)
 
+# print(unfiltered_objectIDs["objectIDs"])
+# print(objectIDs_random)
 # print(pretty(unfiltered_objectIDs))
 # print("\npass: retrieved list of paintings of women\n")
 
@@ -71,7 +75,7 @@ def filter_paintings():
     # print(range_end)
     # print(range_start)
 
-    for objectID in unfiltered_objectIDs["objectIDs"][range_start:range_end]:
+    for objectID in objectIDs_random[range_start:range_end]:
         req_url = met_url + "objects/" + str(objectID)
         # print(url)
         temp_data = safe_get(req_url)
