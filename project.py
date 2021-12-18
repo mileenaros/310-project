@@ -62,11 +62,14 @@ def start():
 @app.route('/by-women')
 def filter_paintings():
     size = int(request.args.get('size'))
-    input = size
     row_fill = 4
     row_num = 1
     range_end = randint(size, unfiltered_objectIDs["total"])
     range_start = range_end - size
+    # print(size)
+    # print(unfiltered_objectIDs["total"])
+    # print(range_end)
+    # print(range_start)
 
     for objectID in unfiltered_objectIDs["objectIDs"][range_start:range_end]:
         req_url = met_url + "objects/" + str(objectID)
@@ -96,7 +99,7 @@ def filter_paintings():
                 row_num += 1
     return render_template("template.html", paintings=paintings, paintings_by_women=paintings_by_women,
                            image_rows=image_rows, num_by_women=len(paintings_by_women), form=False,
-                           input=input, all_paintings=False)
+                           size=size, all_paintings=False)
 
 
 @app.route('/all')
