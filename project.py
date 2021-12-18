@@ -41,8 +41,6 @@ params = {"medium": "Paintings", "q": "women"}
 param_str = urllib.parse.urlencode(params)
 url = met_url + "search" + "?" + param_str
 unfiltered_objectIDs = safe_get(url)
-objectIDs_random = unfiltered_objectIDs["objectIDs"].copy()
-shuffle(objectIDs_random)
 
 # print(unfiltered_objectIDs["objectIDs"])
 # print(objectIDs_random)
@@ -52,7 +50,6 @@ shuffle(objectIDs_random)
 paintings = {}
 paintings_by_women = {}
 image_rows = {}
-input = 0
 
 
 # print(pretty(image_rows))
@@ -65,6 +62,8 @@ def start():
 
 @app.route('/by-women')
 def filter_paintings():
+    random_order = unfiltered_objectIDs["objectIDs"].copy()
+    shuffle(random_order)
     size = int(request.args.get('size'))
     row_fill = 4
     row_num = 1
